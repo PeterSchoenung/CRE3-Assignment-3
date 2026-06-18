@@ -1,0 +1,44 @@
+Section,Parameter_Item,Assignment_Value,Unit,Literature_Benchmark,Source,Deviation,Status
+1 - Math Framework,Space-time transform,t = x/u,-,"Standard PFR derivation (Fogler, CRE 5th ed.)",Fogler CRE Eq. 12-2,Exact,VERIFIED
+1 - Math Framework,Material balance EO,u*dc_EO/dz = -r,mol m^-4,"Güettel & Turek Eq. 11.2a, p.142",Güettel & Turek (textbook),Exact,VERIFIED
+1 - Math Framework,Energy balance,rho*cp*u*dT/dz = -r*dHR - hW*(4/dR)*(T-Twall),K m^-1,"Güettel & Turek Eq. 11.2b, p.142",Güettel & Turek (textbook),Exact,VERIFIED
+1 - Math Framework,Rate law (pseudo 1st order),r = k0*exp(-EA/RT)*c_EO,mol m^-3 s^-1,"Water in large excess -> pseudo-1st order (Fogler, Levenspiel)",Standard CRE textbooks,Exact,VERIFIED
+2 - Kinetics,Pre-exponential k0,5.01E+06,s^-1,Miki et al.: pseudo-1st-order k0 (H2O excess),Miki et al. (Scribd),~5%,WITHIN RANGE
+2 - Kinetics,Activation energy EA,72.5,kJ/mol,Parker & Isaacs (1959): 79.5 | Zheng 2007: 60-80 | Miki: ~75,"Parker & Isaacs, Can.J.Chem 1959; Zheng, J.Phys.Chem.A 2007",9% vs Parker,WITHIN RANGE
+2 - Kinetics,k at 423 K,5.58E-03,s^-1,ACS Ind. Eng. Chem. Res. extrapolated: ~2.8e-3 (factor 2),ACS IECR 2009 (lower T data),~factor 2,ACCEPTABLE*
+2 - Kinetics,Reaction order in EO,1st order,-,First-order confirmed in excess water (Miki; Scribd BAT),Multiple sources,Exact,VERIFIED
+3 - Thermodynamics,Reaction enthalpy dHR,-92.2,kJ/mol,NIST WebBook: -88 to -94 | Industrial BAT 2017: -88 to -94,NIST WebBook; EU BAT 2017,< 2.5%,VERIFIED
+3 - Thermodynamics,Adiabatic temp. rise dTad,49.95,K,Industrial estimate scaled to 2270 mol/m^3: ~45-50 K,Arrieta/Scribd industrial data,~5-10%,WITHIN RANGE
+3 - Thermodynamics,Density rho,1000,kg/m^3,NIST water at 150°C: 917 kg/m^3 (dilute soln. approximation OK),NIST WebBook,<9% (approx.),STANDARD APPROX
+3 - Thermodynamics,Heat capacity cp,4.19,kJ/(kg·K),NIST water at 423 K: ~4.3 kJ/(kg·K),NIST WebBook,< 3%,VERIFIED
+4 - Operating Conditions,Inlet temperature Tin,423 K (150°C),K,Industrial range: 150-270°C (BAT 2017; Shell technology),EU BAT 2017; Shell EG review,At lower bound,REALISTIC
+4 - Operating Conditions,Twall (base case),423 K (150°C),K,4-bar steam jacket: ~143°C -> 408 K (near base case),Steam tables / BAT 2017,~1.2%,PHYSICALLY MOTIVATED
+4 - Operating Conditions,Wall HTC hW,500,W/(m^2·K),Typical liquid-phase shell-tube reactor: 200-2000 W/(m^2·K),Incropera Heat Transfer textbook,Mid-range,CONSERVATIVE/REALISTIC
+4 - Operating Conditions,Fluid velocity u,1,m/s,Typical tubular reactor liquid: 0.5-3 m/s,Perry's Chemical Engineers Handbook,Mid-range,REALISTIC
+4 - Operating Conditions,Tube diameter dR,0.03 m (30 mm),m,Shell/Dow technology: 25-50 mm tubes,Shell EG technology review,Mid-range,REALISTIC
+4 - Operating Conditions,Reactor length L,300,m,Long-tube (multi-pass) reactors for high EO conversion,Industrial practice,Consistent,REALISTIC
+4 - Operating Conditions,"EO inlet conc. cEO,in",2270,mol/m^3,~10 wt% EO; industrial 10-20 wt% EO (BAT 2017),EU BAT 2017,Within range,REALISTIC
+4 - Operating Conditions,H2O:EO molar ratio,~20:1 (implied),-,Industrial: 20:1 (non-cat. process),Scribd/Arrieta; BAT 2017,Consistent,VERIFIED
+5 - Base Case Results,Outlet conversion Xout,92.6,%,Industrial benchmark: ~90%,Arrieta/Scribd; BAT 2017,2.90%,CONSISTENT
+5 - Base Case Results,Outlet temperature Tout,153.3,°C,Industrial operating range: 150-250°C,EU BAT 2017,At lower bound,REALISTIC
+5 - Base Case Results,Hot-spot Tmax,164.2,°C,Expected for exothermic PFTR; 150-250°C window,Industrial practice,Within range,PHYSICALLY CORRECT
+5 - Base Case Results,Hot-spot location z(Tmax),98.1 m (~1/3 L),m,Hot-spot at ~1/3 of reactor: standard exothermic PFTR behavior,CRE textbooks (Fogler Ch.12),Exact behavior,CORRECT PHYSICS
+5 - Base Case Results,Atom/mass balance error,1.82E-12,mol/m^3,Machine precision target <= 1e-6,Numerical analysis standards,1000x better,PASS
+6 - Verification,V1: Isothermal analytical,Rel. error = 1.90e-8,-,Threshold < 1e-5,Numerical tolerance standards,50x below threshold,PASS
+6 - Verification,V2: Mass balance,Error = 1.82e-12 mol/m^3,-,Threshold < 1e-6,Stoichiometric consistency,1e6x below threshold,PASS
+6 - Verification,V3: Adiabatic T-X coupling,Error = 2.84e-13 K,-,Threshold < 1e-3 K,"Güettel & Turek Eq. 11.6b, p.143",1e10x below threshold,PASS
+6 - Verification,V4: Solver independence,LSODA = BDF = Radau (tol=1e-10),-,All solvers must agree to 1e-6,Scipy ODE solver suite,Exact agreement,PASS
+7 - Parameter Variation,hW variation (adiab.->isotherm.),Adiabatic: Xout highest; isothermal: Xout lowest,-,Higher T -> higher k(T) -> higher conversion: textbook result,Fogler CRE; Levenspiel CRE,Exact trend,CORRECT
+7 - Parameter Variation,Twall 373-513 K variation,Higher Twall -> higher Xout (up to ~99%),-,Steam heating at 4 bar (408 K) and 20 bar (473 K) realistic industrial jacket temps,Steam tables; EU BAT 2017,Physically motivated,CORRECT
+7 - Parameter Variation,Tin variation (373-513 K),Higher Tin -> higher Xout and shorter required reactor length,-,Industrial pre-heating of feed common to reduce reactor length,Shell EG technology; BAT 2017,Consistent,CORRECT
+7 - Parameter Variation,"cEO,in variation (0.5-4 mol/L)","Higher cEO,in -> higher Tmax; lower Xout at same length",-,High EO conc. increases exotherm; dilution improves selectivity (reduces DEG),Scribd/Arrieta; BAT 2017,Consistent,CORRECT
+7 - Parameter Variation,PFTR vs Batch comparison (15 m^3),PFTR: higher vol. productivity; Batch: higher total output (larger vol.),-,PFTR preferred for continuous large-scale EG production (industrial practice),Shell/BAT 2017; DiGiulio 2015,Consistent,CORRECT
+8 - References,Güettel & Turek (textbook),"Design equations Eq. 11.2a/b, 11.6b",-,Primary source for PFTR balance equations used in assignment,"Chemische Reaktionstechnik, Springer 2021",Direct citation,USED CORRECTLY
+8 - References,Parker & Isaacs (1959),EA = 79.5 kJ/mol,kJ/mol,Spontaneous EO hydrolysis activation energy,"Can. J. Chem. 37, DOI 10.1139/v59-105",Verified,CONFIRMED
+8 - References,Zheng et al. (2007),EA = 60-80 kJ/mol,kJ/mol,"DFT/B3LYP activation energies, acid/alkaline conditions","J. Phys. Chem. A, DOI 10.1021/jp073285b",Verified,CONFIRMED
+8 - References,NIST WebBook,dHR = -88 to -94 kJ/mol; cp = 4.3 kJ/(kg·K),-,"Thermochemical data for EO, EG, water",NIST WebBook (webbook.nist.gov),Verified,CONFIRMED
+8 - References,EU BAT Reference Doc (2017),T = 150-250°C; P = 10-40 bar; 10-20 wt% EO,-,Industrial operating conditions for EG production,European Best Available Techniques 2017,Verified,CONFIRMED
+8 - References,Statista (2023),Global EG production 56.97 Mt in 2022,Mt/yr,Used in introduction for production scale motivation,Statista GlobalData May 2023,Verified,CONFIRMED
+8 - References,DiGiulio (2015),Tubular reactor advantages for continuous production,-,Used for industrial relevance of PFTR discussion,ISCRE25 conference paper,Verified,CONFIRMED
+8 - References,Arrieta et al. / Scribd,~90% MEG yield; 20:1 H2O:EO; dTad ~38 K @ 9 wt%,-,Industrial benchmark for comparison,Scribd/Arrieta EG plant design,Verified,CONFIRMED
+8 - References,ACS IECR (2009),k1 at 358-388 K experimental,L/(mol·min),DOI 10.1021/ie901037w; extrapolated to 423 K,ACS Ind. Eng. Chem. Res. 2009,Verified,CONFIRMED
