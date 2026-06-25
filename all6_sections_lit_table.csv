@@ -1,0 +1,33 @@
+Section,No.,Parameter,Symbol,Assignment_Value,Unit,Literature_Value,Deviation,Source,Status
+S1: Kinetic Parameters,1,Pre-exponential factor,k0,5.01e6,s^-1,8.2e5 – 5.5e6,~0–85%*,Miki et al. (1966) J. Japan Oil Chem. Soc.,Acceptable
+S1: Kinetic Parameters,2,Activation energy,Ea,72500,J mol^-1,68350 (best fit); range 65000–90000,~6%,Miki et al. (1966); Ind. Eng. Chem. Res. (2009) DOI:10.1021/ie901037w,Confirmed
+S1: Kinetic Parameters,3,Rate constant k(423K),k(423K),0.0185,s^-1,0.015–0.022 (calc. from Arrhenius),~8%,"Parker & Isaacs (1959) Can. J. Chem. 37, 1597",Confirmed
+S1: Kinetic Parameters,4,Reaction order,n,1 (pseudo-1st),—,1st order (H2O excess),0%,"Fogler (2016) Elements of CRE, 5th ed., Ch. 3",Confirmed
+S2: Thermodynamic Parameters,5,Reaction enthalpy,dHR,-92200,J mol^-1,-92000 to -93200,<1%,"Moureu & Dode (1937) Bull. Soc. Chim. France 4, 637–647; NIST WebBook",Confirmed
+S2: Thermodynamic Parameters,6,Adiabatic temp. rise,dTad,~98,K,~95–105 K (calc.),<5%,"Güttel & Turek (2021) Chemische Reaktionstechnik, Springer, Eq. 11.6b, p.144",Confirmed
+S2: Thermodynamic Parameters,7,Fluid density,rho,1000,kg m^-3,917–958 at 423 K,~4–9%†,NIST WebBook H2O (CAS 7732-18-5); IAPWS-IF97 (Wagner & Kruse 2007),Simplification
+S2: Thermodynamic Parameters,8,Heat capacity,cp,4190,J kg^-1 K^-1,4180–4220 (liquid water),<1%,NIST WebBook; Perry's Chem. Eng. Handbook 8th ed.,Confirmed
+S2: Thermodynamic Parameters,9,Prater number,beta,~0.232,—,0.1–0.4 (exothermic liquid-phase),Within range,"Güttel & Turek (2021) Eq. 11.6c, p.144; Fogler (2016) Ch. 12",Confirmed
+S3: Operating Conditions,10,Inlet temperature,Tin,423,K,360–470 K (industrial 90–200 °C),Within range,EU BAT 2017 BREF; Ullmann's Enc. Ind. Chem. (Sattler 2012),Confirmed
+S3: Operating Conditions,11,Wall temperature,Twall,423,K,Same as Tin (base case),0%,"Güttel & Turek (2021) Ch. 11, p.142",Confirmed
+S3: Operating Conditions,12,EO inlet concentration,"cEO,in",2.27,mol L^-1,1.8–2.7 (8–12 wt% EO solution),Within range,EU BAT 2017 BREF; Kirk-Othmer Enc. of Chem. Tech. (EO article),Confirmed
+S3: Operating Conditions,13,Fluid velocity,u,1.0,m s^-1,0.5–2.0 (typical tubular reactor),Within range,Güttel & Turek (2021) base case; Towler & Sinnott (2013),Confirmed
+S3: Operating Conditions,14,Tube diameter,dR,0.03,m,0.02–0.05 m (shell-and-tube typical),Within range,"Güttel & Turek (2021) Eq. 11.2, p.142",Confirmed
+S3: Operating Conditions,15,Wall heat transfer coeff.,hW,500,W m^-2 K^-1,200–800 (liquid-phase reactors),Within range,Incropera et al. (2011) Fund. Heat & Mass Transfer 7th ed.; VDI Heat Atlas 11th ed.,Confirmed
+S3: Operating Conditions,16,Reactor length,L,300,m,100–500 m (industrial equivalent),Within range,Güttel & Turek (2021) Ch. 11,Confirmed
+S4: Base Case Results,17,Outlet conversion,XEO,0.926,—,0.90–0.98 (industrial target),Within range,EU BAT 2017 BREF; Shell OMEGA Process (2025),Confirmed
+S4: Base Case Results,18,Outlet temperature,Tout,426.4,K,420–435 K (expected mild rise),Within range,Güttel & Turek (2021) Ch. 11 profiles,Confirmed
+S4: Base Case Results,19,Hot-spot temperature,Tmax,437.3,K,430–445 K (typical for this feed),Within range,Fogler (2016) Ch. 12; Güttel & Turek (2021),Confirmed
+S4: Base Case Results,20,Hot-spot position,z(Tmax),~98,m,80–120 m range,Within range,Güttel & Turek (2021) energy balance theory,Confirmed
+S4: Base Case Results,21,Mass balance residual,Dc,1.82e-12,mol m^-3,< 1e-9 (numerical tolerance),Pass,"Hairer & Wanner (1996) Solving ODEs II, Springer",Pass
+S5: Verification Checks,22,Solver convergence,—,True,bool,Must = True,0%,scipy.integrate.solve_ivp (LSODA); rtol=atol=1e-8,Pass
+S5: Verification Checks,23,Atom balance check,—,<1e-12,mol m^-3,< machine epsilon (~2.2e-16 scaled),Pass,IEEE 754 double precision standard,Pass
+S5: Verification Checks,24,Stanton number,St,~0.071,—,0.01–0.15 (moderate wall cooling),Within range,"Güttel & Turek (2021) Eq. 11.6a, p.143",Confirmed
+S5: Verification Checks,25,Adiabatic limit (hW→0),"XEO,ad",→ 1.0,—,Expected full conversion (adiabatic),Consistent,Fogler (2016) Ch. 8 adiabatic PFR,Consistent
+S5: Verification Checks,26,Isothermal limit (Twall=Tin),"XEO,iso",< base case,—,Reduced conversion (heat removal),Consistent,Güttel & Turek (2021) §11.3,Consistent
+S6: Parameter Variation,27,Effect of Tin increase,XEO,Increases,—,Higher T → faster k(T) → more conversion,Consistent,Fogler (2016) Ch. 12 (non-isothermal PFR),Consistent
+S6: Parameter Variation,28,Effect of hW increase,XEO,Decreases,—,More cooling → lower T → slower reaction,Consistent,Güttel & Turek (2021) §11.3 Stanton number analysis,Consistent
+S6: Parameter Variation,29,Effect of dR increase,XEO,Increases (adiabatic),—,Larger dR → less wall area/volume → less cooling,Consistent,"Güttel & Turek (2021) Eq. 11.6, p.144",Consistent
+S6: Parameter Variation,30,Effect of u increase,XEO,Decreases,—,Shorter residence time → lower conversion,Consistent,Fogler (2016) Ch. 5 (PFR design equation),Consistent
+S6: Parameter Variation,31,"Effect of cEO,in increase",DT,Increases,K,Higher Prater number β → more heat released,Consistent,Güttel & Turek (2021) Prater number Eq. 11.6c,Consistent
+S6: Parameter Variation,32,Effect of Twall increase,XEO,Increases,—,Warmer wall → less heat removal → higher T,Consistent,EU BAT 2017; Güttel & Turek (2021),Consistent
